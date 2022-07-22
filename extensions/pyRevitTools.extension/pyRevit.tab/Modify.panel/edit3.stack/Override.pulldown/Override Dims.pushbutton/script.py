@@ -48,6 +48,11 @@ def bake_dim_value():
         for seg in grab_dims():
             seg.ValueOverride = u'\u200e' + seg.ValueString
 
+def bake_no_value():
+    with revit.Transaction('Clear dims value'):
+        for seg in grab_dims():
+            seg.ValueOverride = u'\u200e'
+
 
 def clear_overrides():
     set_dim_overrides(grab_dims(), txn_name='Reset Dimension Overrides',
@@ -210,6 +215,7 @@ options['Suffix: CLR'] = set_to_clr_suffix
 options['Below: UNO'] = set_to_uno_below
 options['Suffix: UNO'] = set_to_uno_suffix
 options['Below: A_To_Grid'] = set_to_align_below
+options['Clear Dims Value'] = bake_no_value
 
 selected_switch = \
     forms.CommandSwitchWindow.show(options.keys(),
