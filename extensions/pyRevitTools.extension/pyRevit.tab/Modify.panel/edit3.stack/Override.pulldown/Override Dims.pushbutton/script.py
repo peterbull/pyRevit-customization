@@ -1,7 +1,7 @@
 # coding=utf-8
 """ Provides options for overriding values on selected dimensions. """
-#pylint: disable=import-error,invalid-name,broad-except,superfluous-parens
-#comment
+# pylint: disable=import-error,invalid-name,broad-except,superfluous-parens
+# comment
 from collections import OrderedDict
 
 from pyrevit import revit, DB
@@ -47,6 +47,7 @@ def bake_dim_value():
     with revit.Transaction('Overrride dims value'):
         for seg in grab_dims():
             seg.ValueOverride = u'\u200e' + seg.ValueString
+
 
 def bake_no_value():
     with revit.Transaction('Clear dims value'):
@@ -182,9 +183,14 @@ def set_to_ro_below():
     set_dim_overrides(grab_dims(), txn_name='RO Dims',
                       below='R.O.')
 
+
 def set_to_align_below():
     set_dim_overrides(grab_dims(), txn_name='A_To_Grid',
                       below='ALIGN TO GRID')
+
+def set_to_hold_below():
+    set_dim_overrides(grab_dims(), txn_name='Hold',
+                      below='HOLD')
 
 
 options = OrderedDict()
@@ -216,6 +222,7 @@ options['Below: UNO'] = set_to_uno_below
 options['Suffix: UNO'] = set_to_uno_suffix
 options['Below: A_To_Grid'] = set_to_align_below
 options['Clear Dims Value'] = bake_no_value
+options['Hold'] = set_to_hold_below
 
 selected_switch = \
     forms.CommandSwitchWindow.show(options.keys(),
