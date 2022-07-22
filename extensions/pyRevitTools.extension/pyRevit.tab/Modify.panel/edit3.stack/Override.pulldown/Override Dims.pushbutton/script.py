@@ -177,6 +177,10 @@ def set_to_ro_below():
     set_dim_overrides(grab_dims(), txn_name='RO Dims',
                       below='R.O.')
 
+def set_to_align_below():
+    set_dim_overrides(grab_dims(), txn_name='A_To_Grid',
+                      below='ALIGN TO GRID')
+
 
 options = OrderedDict()
 options['Reset Dimension Overrides'] = clear_overrides
@@ -205,7 +209,7 @@ options['Below: CLR'] = set_to_clr_below
 options['Suffix: CLR'] = set_to_clr_suffix
 options['Below: UNO'] = set_to_uno_below
 options['Suffix: UNO'] = set_to_uno_suffix
-
+options['Below: A_To_Grid'] = set_to_align_below
 
 selected_switch = \
     forms.CommandSwitchWindow.show(options.keys(),
